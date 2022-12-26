@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require('mongoose');
+const encrypt = require("mongoose-encryption");
 //Import Module(End)
 
 
@@ -45,6 +46,8 @@ const userSchema = new mongoose.Schema({
     }
 });
 
+const secrets = "Thisisoursecret.";
+userSchema.plugin(encrypt,{secret:secrets,encryptedFields:["password"]});
 
 const User = new mongoose.model("User",userSchema);
 
